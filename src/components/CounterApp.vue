@@ -8,8 +8,7 @@
         <button @click="handleDecrease()">Decrement</button>
       </div>
       <div class="d-count">
-        <p>Doubled count: {{ doubledCount }}</p>
-        <!-- <p> count from  store: {{ this.$store.state.count }}</p> -->
+        <p ref="count">Doubled count: {{ doubledCount }}</p>
       </div>
     </div>
   </div>
@@ -31,27 +30,39 @@ export default {
   methods: {
     handleIncrease() {
       // this.$emit("increase");
-      this.$store.dispatch('increase');
+      this.$store.dispatch("increase");
     },
     handleDecrease() {
       // this.$emit("decrease");
-      this.$store.dispatch('decrease');
+      this.$store.dispatch("decrease");
     },
   },
   computed: {
-    count(){
+    count() {
       return this.$store.state.count;
     },
     doubledCount() {
       return this.count * 2;
     },
   },
-  mounted() {
-    console.log("Component has been mounted");
+
+  // mounted() {
+  //   console.log("Component has been mounted", this.$el);
+  // },
+  // beforeMount() {
+  //   console.warn("Not mounted yet", this.$el);
+  // },
+  // unmounted() {
+  //   console.log("Component has not been mounted yet");
+  // },
+  beforeUpdate() {
+    console.warn("beforeUpdate",this.$refs['count'].textContent);
   },
-  unmounted() {
-    console.log("Component has not been mounted yet");
-  },
+
+
+  updated(){
+    console.warn("updated",this.$store.state.count);
+  }
 };
 </script>
 

@@ -2,6 +2,16 @@
 const vFocus = {
   mounted: (el) => el.focus()
 }
+const vHighlight = {
+  mounted: (el) => {
+    el.addEventListener('mouseenter', () => {
+      el.style.backgroundColor = 'red';
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.backgroundColor = '';
+    });
+  }
+};
 import { computed, watch } from "vue";
 import { useStore } from "vuex";
 
@@ -28,9 +38,9 @@ watch(count, (newValue, oldValue) => {
 <template>
   <div class="main_div">
     <div class="center_div">
-        <button @click="handleIncrease">Increment</button>
+        <button  @click="handleIncrease" v-Highlight>Increment</button>
         <p>{{ count }}</p>
-        <button @click="handleDecrease">Decrement</button>
+        <button @click="handleDecrease"  v-Highlight>Decrement</button>
     </div>
     <h3>Doubled count: {{ doubleCount }}</h3>
     <div><input type="text" v-focus/></div>
